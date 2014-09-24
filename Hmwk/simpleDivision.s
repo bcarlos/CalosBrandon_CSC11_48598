@@ -8,8 +8,8 @@ _start:
 
 _LOOP:
 	ADD R0, R0, #1
-	SUBS R1, R1, R2
-	BEQ _END;
+	SUB R1, R1, R2
+	CMP R1, R2
 	BGE _LOOP
 
 
