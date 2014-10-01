@@ -5,7 +5,7 @@ _start:
 	MOV R1, R2			@copy of variable to be moded
 	MOV R2, #2222		@initialize variables to- 
 	MOV R3, #5			@ be divided
-	MOV R4, #0			@empty variable??
+	MOV R4, #0			@unused variable??
 	MOV R5, #0			@empty variable to be used for a swap
 	MOV R6, #0			@counter for scale 
 	MOV R7, #0			@subtraction factor 
