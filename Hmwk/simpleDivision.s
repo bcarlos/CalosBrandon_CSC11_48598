@@ -1,4 +1,4 @@
-	.global _start
+.global _start
 
 _start:
 	MOV R0, #0			@ DIVISION COUNTER
