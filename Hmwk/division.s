@@ -1,6 +1,6 @@
-.global _start
+.GLOBAL _MAIN
 
-_start:
+_MAIN:
 	MOV R0, #0			@ DIVISION COUNTER
 	MOV R1, R2			@ REMAINDER AFTER DIVISION
 	MOV R2, #111		@ VARIABLE TO BE DIVIDED
@@ -27,5 +27,6 @@ _SWAP:
 _END:
 	MOV R7, #1
 	SWI 0
+	BX LR
 
 		
