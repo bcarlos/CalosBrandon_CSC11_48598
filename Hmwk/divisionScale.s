@@ -1,6 +1,6 @@
-	.global _start
+	.GLOBAL _START:
 
-_start:
+_START:
 	MOV R0, #0			@counter
 	MOV R1, R2			@copy of variable to be moded
 	MOV R2, #2222		@initialize variables to- 
