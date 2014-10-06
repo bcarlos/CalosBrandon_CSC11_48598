@@ -9,6 +9,7 @@ _start:
 	MOV R5, #0			@ EMPTY VARIABLE TO SWAP
 	CMP R1, R3
 	BLT _SWAP
+	BGE _LOOP
 
 _LOOP:
 	ADD R0, R0, #1
