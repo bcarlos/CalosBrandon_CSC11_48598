@@ -21,6 +21,7 @@ _SWAP:
 	MOV R5, R0
 	MOV R0, R1
 	MOV R1, R5
+	B _LOOP
 
 _END:
 	MOV R7, #1
