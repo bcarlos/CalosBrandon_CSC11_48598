@@ -1,8 +1,8 @@
-/* division of two numbers */
+/*DIVISION WITH INPUT AND OUTPUT*/
 
-	.global _start
-_start:
-_read:
+	.GLOBAL _MAIN
+_MAIN:
+_READ:
 				@ READ SYSCALL
 	MOV R7, #3		@ SYSCALL NUMBER
 	MOV R0, #0		@ STDOUT IS MONITOR
@@ -12,7 +12,7 @@ _read:
 
 	
 
-_write:
+_WRITE:
 				@ WRITE SYSCALL
 	MOV R7, #4		@ SYSCALL NUMBER
 	MOV R0, #1		@ STDOUT IS MONITOR
@@ -20,7 +20,7 @@ _write:
 	LDR R1,=string		@ STRING LOCATED AT STRING:
 	SWI 0
 
-_compare:
+_COMPARE:
 				@ COMPARE THE DIGITS TYPED
 	CMP R2, R3		@ SET FLAGS FOR R2 MINUS R3
 	BEQ ZEROFLAGSET		@ BRANCH IF ZERO FLAG IS SET
@@ -37,13 +37,13 @@ _ZEROFLAGSET:
 	
 
 
-_exit:
+_EXIT:
 				@ EXIT SYSCALL
 	MOV R7, #1
 	SWI 0
 
-.data
-string:
-.ascii "Type the numbers to divide:\n"
-string2:
-.ascii "These are the same numbers" 
+.DATA
+STRING:
+.ASCII "Type the numbers to divide:\n"
+STRING2:
+.ASCII "These are the same numbers" 
