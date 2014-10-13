@@ -2,6 +2,8 @@
 
 	.GLOBAL _MAIN
 _MAIN:
+	MOV R3, #0		@ NUMBER TO DIVIDE BY
+
 _READ:
 				@ READ SYSCALL
 	MOV R7, #3		@ SYSCALL NUMBER
@@ -10,7 +12,8 @@ _READ:
 	LDR R1,=string 		@ STRING PLACED AT STRING:
 	SWI 0
 
-	
+_SHIFT:
+	MOV R2, R2, LSL #2
 
 _WRITE:
 				@ WRITE SYSCALL
@@ -24,8 +27,8 @@ _COMPARE:
 				@ COMPARE THE DIGITS TYPED
 	CMP R2, R3		@ SET FLAGS FOR R2 MINUS R3
 	BEQ ZEROFLAGSET		@ BRANCH IF ZERO FLAG IS SET
-	CMN 
-	
+	CMN
+
 
 _ZEROFLAGSET:
 				@ ZERO FLAG SET WHEN R2 MINUS R3
@@ -34,7 +37,7 @@ _ZEROFLAGSET:
 	MOV R2, #28		@ STRING IS 28 CHARS LONG
 	LDR R1,=string2		@ STRING LOCATED AT STRING2:
 	SWI 0
-	
+
 
 
 _EXIT:
@@ -46,4 +49,4 @@ _EXIT:
 STRING:
 .ASCII "Type the numbers to divide:\n"
 STRING2:
-.ASCII "These are the same numbers" 
+.ASCII "These are the same numbers"
