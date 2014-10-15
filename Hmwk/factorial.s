@@ -1,4 +1,4 @@
-/* -- factorial01.s */
+/* -- factorial01.s  */
 .data
 
 message1: .asciz "Type a number: "
