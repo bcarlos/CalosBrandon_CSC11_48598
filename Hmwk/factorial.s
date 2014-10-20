@@ -69,7 +69,7 @@ main:
  
 	bl printf 					/* Call printf */
 
-	add sp, sp #+4				/* discard the integer read by scanf */
+	add sp, sp, #+4				/* discard the integer read by scanf */
 	ldr lr, [sp], #+4			/* pop the top of the stack and put it in lr */
 	bx lr
 	
