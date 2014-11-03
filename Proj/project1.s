@@ -1,3 +1,7 @@
+@This is a card game. The player and computer generate 2 cards with single digit numbers
+@ Each player has a choice of attacking the opponent with a chosen card. An attack subtracts
+@ itself from the card being attacked and leaves the remainder for the higher card. A player wins
+@ when their opponent has no more cards
 .data
 message0: .asciz "User's cards: 1: %d , 2: %d  computer's cards: 1: %d , 2: %d "
 message1: .asciz "Welcome to the card attack game"
