@@ -18,6 +18,7 @@ format: .asciz "%d"
  
 main:
   push {lr, r4, r5, r6, r7}
+  sub sp, sp #4			/* <- check this */
 
   ldr r0, address_of_message1
   bl printf
@@ -140,6 +141,7 @@ main:
    
    _end:   
    pop {lr, r4, r5} 
+   add sp, sp, #4		/* check this */
    bx lr                       /* Return from main */
  
 .align 4
