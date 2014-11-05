@@ -73,3 +73,5 @@ address_of_message2: .word message2
 
 
 .global printf
+.global start_clock
+.global end_clock
