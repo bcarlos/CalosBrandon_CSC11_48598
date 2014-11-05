@@ -24,7 +24,7 @@ bl printf
 sub r1, r6, r5
 ldr r1, [r1]
 ldr r0, address_of_message3
-printf
+bl printf
 bx lr
 
 address_of_message: .word message
