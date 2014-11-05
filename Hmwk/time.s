@@ -32,3 +32,4 @@ address_of_message2: .word message2
 address_of_message3: .word message3
 
 .global time
+.global printf
