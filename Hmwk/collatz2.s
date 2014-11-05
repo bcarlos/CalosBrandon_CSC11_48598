@@ -3,8 +3,6 @@
 message: .asciz "Type a number: "
 scan_format : .asciz "%d"
 message2: .asciz "Length of the Hailstone sequence for %d is %d\n"
-message3: .asciz "Start time is %d"
-message4: .asciz "End time is %d"
  
 .text
 
@@ -38,13 +36,10 @@ collatz2:
 
 .global main
 main:
-    push {r4, lr}                       /* keep lr */
+    push {r4, r5, lr}                       /* keep lr */
     sub sp, sp, #4                  /* make room for 4 bytes in the stack */
                                     /* The stack is already 8 byte aligned */
-    bl time							/* time generates # and into r0 */
-	ldr r1, [r0]
-    ldr r0, address_of_message3
-	bl printf
+    bl start_clock							/* time generates #  */
  
     ldr r0, address_of_message      /* first parameter of printf: &message */
     bl printf                       /* call printf */
@@ -65,21 +60,16 @@ main:
     ldr r0, address_of_message2     /* first parameter of printf: &address_of_message2 */
     bl printf
  
-    bl time
-    ldr r1, [r0]
-    ldr r0, address_of_message4
-    bl printf
+    bl end_clock					/* generate number and subtract start clock */
     
     add sp, sp, #4
-    pop {r4, lr}
+    pop {r4, r5, lr}
     bx lr
  
  
 address_of_message: .word message
 address_of_scan_format: .word scan_format
 address_of_message2: .word message2
-address_of_message3: .word message3
-address_of_message4: .word message4
+
 
 .global printf
-.global time
