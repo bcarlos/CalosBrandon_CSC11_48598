@@ -6,7 +6,7 @@ message2: .asciz "Length of the Hailstone sequence for %d is %d\n"
  
 .text
 
-collatz2:
+collatz:
     /* r0 contains the first argument */
     push {r4, lr}
     sub sp, sp, #4  /* Make sure the stack is 8 byte aligned */
@@ -15,18 +15,22 @@ collatz2:
   collatz_repeat:
     mov r1, r4                 /* r1 ? r0 */
     mov r0, #0                 /* r0 ? 0 */
-  collatz2_loop:
+  collatz_loop:
     cmp r1, #1                 /* compare r1 and 1 */
-    beq collatz2_end           /* if r1 == 1 branch to collatz2_end */
+    beq collatz_end           /* if r1 == 1 branch to collatz2_end */
     and r2, r1, #1             /* r2 ? r1 & 1 */
     cmp r2, #0                 /* compare r2 and 0 */
-    moveq r1, r1, ASR #1       /* if r2 == 0, r1 ? r1 >> 1. This is r1 ? r1/2 */
-    addne r1, r1, r1, LSL #1   /* if r2 != 0, r1 ? r1 + (r1 << 1). This is r1 ? 3*r1 */
-    addne r1, r1, #1           /* if r2 != 0, r1 ? r1 + 1. */
-  collatz2_end_loop:
+	bne collatz_odd
+	collatz_even:
+    mov r1, r1, ASR #1       /* if r2 == 0, r1 ? r1 >> 1. This is r1 ? r1/2 */
+    b collatz_end_loop
+	collatz_odd:
+	add r1, r1, r1, LSL #1   /* if r2 != 0, r1 ? r1 + (r1 << 1). This is r1 ? 3*r1 */
+    add r1, r1, #1           /* if r2 != 0, r1 ? r1 + 1. */
+  collatz_end_loop:
     add r0, r0, #1             /* r0 ? r0 + 1 */
-    b collatz2_loop            /* branch back to collatz2_loop */
-  collatz2_end:
+    b collatz_loop            /* branch back to collatz2_loop */
+  collatz_end:
     sub r3, r3, #1		
     cmp r3, #0		
     bne collatz_repeat		
@@ -51,7 +55,7 @@ main:
  
     ldr r0, [sp]                    /* first parameter of collatz:
                                        the value stored (by scanf) in the top of the stack */
-    bl collatz2                      /* call collatz */
+    bl collatz                      /* call collatz */
  
     mov r2, r0                      /* third parameter of printf: 
                                        the result of collatz */

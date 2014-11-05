@@ -18,10 +18,11 @@ bx lr
 end_clock:
 mov r0, #0
 bl time
-mov r6, r0
+mov r1, r0
 ldr r0, address_of_message2
 bl printf
-sub r1, r6, r5
+mov r6, r1
+sub r1, r6, r5					/* subtract r6 (end) - r5 (start) */
 ldr r1, [r1]
 ldr r0, address_of_message3
 bl printf
