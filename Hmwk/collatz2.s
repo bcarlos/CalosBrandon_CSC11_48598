@@ -56,7 +56,7 @@ main:
  
     ldr r0, [sp]                    /* first parameter of collatz:
                                        the value stored (by scanf) in the top of the stack */
-    bl collatz                      /* call collatz */
+    bl collatz2                      /* call collatz */
  
     mov r2, r0                      /* third parameter of printf: 
                                        the result of collatz */
