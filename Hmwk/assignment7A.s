@@ -5,8 +5,6 @@ message2: .asciz "The conversion is: %d   with remainder: %d\n"
 message3: .asciz "Type a number between 32 and 212: \n"
 .text
 
-check_input:
-
 try_again:
 ldr r0, address_of_message3		/* Set &message3 as the first parameter of printf */
 bl printf						/* call printf */ 
@@ -19,6 +17,7 @@ cmp r4, #32
 blt try_again
 cmp r4, #212
 bgt try_again
+
 bx lr							/* leave function try_again
 
 .global main
@@ -40,7 +39,8 @@ mov r1, #5
 mov r2, #9
 sub r4, r4, #32
 mul r1, r1, r4
-bl divMod 						/* Branch to divMod with input in r1. result will be in r0 */
+bl divMod 						/* Branch to divMod with input in r1, divisor in r2 */
+								/* result will be in r0 with remainder in r1 */
 								/* r1 has remainder */
 
 ldr r0, address_of_message2 	/* Set &message2 as the first parameter of printf */
@@ -55,7 +55,3 @@ address_of_message1: .word message1
 address_of_message2: .word message2
 address_of_format: .word format
 address_of_message3: .word message3
-
-
-for divMod - going in r0 gets 0'd, r1 has # being divided, r2 has divisor, r3 gets a 1
-results are: r0 has the result of division?, r1 has the remainder?, r2 subtracts r1, r3 has division counter placed into r0
