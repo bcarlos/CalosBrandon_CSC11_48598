@@ -6,7 +6,7 @@ message3: .asciz "Type a number between 32 and 212: \n"
 .text
 
 try_again:
-push {lr}
+push {r4, lr}
 ldr r0, address_of_message3		/* Set &message3 as the first parameter of printf */
 bl printf						/* call printf */ 
 ldr r0, address_of_format    	/* Set &format as the first parameter of scanf */
@@ -18,12 +18,12 @@ cmp r4, #32
 blt try_again
 cmp r4, #212
 bgt try_again
-pop {lr}
-bx lr							/* leave function try_again
+pop {r4, lr}
+bx lr							/* leave function try_again */
 
 .global main
 main:
-push {lr}
+push {r4, lr}
 ldr r0, address_of_message1		/* Set &message1 as the first parameter of printf */
 bl printf                    	/* Call printf */
  
@@ -50,7 +50,7 @@ ldr r1, [r0] 					/* load results onto registers */
 ldr r2, [r1]
 bl printf                     	/* Call printf */
  
-pop {lr}
+pop {r4, lr}
 bx lr
 
 address_of_message1: .word message1
