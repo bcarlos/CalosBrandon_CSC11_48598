@@ -18,7 +18,7 @@ cmp r4, #32
 blt try_again
 cmp r4, #212
 bgt try_again
-pop{lr}
+pop {lr}
 bx lr							/* leave function try_again
 
 .global main
