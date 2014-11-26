@@ -12,7 +12,8 @@ format: .asciz "%d"
 loop:
 push { r4, lr}
 sub r1, r4, #32				@ counter r4 - 32 goes into r1
-mul r1, r1, #5				@ r1 has numerator for divMod
+mov r0, #5				@ set r0 to mul r1 for numerator
+mul r1, r0, r1				@ r1 has numerator for divMod
 mov r2, #9				@ r2 has denominator for divMod
 bl divMod				@ branch to Divmod
 ldr r0, address_of_message1		@ after divMod results displayed r1 can be used
@@ -50,10 +51,9 @@ bx lr
 iTemp:
 push {r4, lr}
 ldr r1, =0x8E38F
-ldr r1, [r1]
 sub r2, r4, #32 			@ r2 has (r4(int i) -32)
 mul r3, r1, r2				@ r3 has r1 * r2  >>20???
-pop {r4, lr}			
+pop {r4, lr}
 
 iTemp_timed_loop:			@ r0 has counter
 push {r4, lr}
@@ -68,7 +68,7 @@ bx lr
 divMod_timed_loop:
 push {r4, lr}			
 mov r2, #9				@ set the divisor
-mov r1, #900				@ set the numerator
+ldr r1, =900				@ set the numerator
 bl divMod 
 sub r4, r4, #1				@ sub 1 from the counter
 cmp r4, #0
@@ -76,8 +76,8 @@ bgt divMod_timed_loop  			@ loop til counter reaches 0
 pop {r4, lr}
 bx lr
 
-//divMod- r0 gets #0, r1 has # to be divided, r2 has divisor, r3 gets a 1
-//results are: r0 has the result, r1 the remainder, r2 subtracts r1, r3 has division counter -> r0
+@ divMod- r0 gets #0, r1 has # to be divided, r2 has divisor, r3 gets a 1
+@ results are: r0 has the result, r1 the remainder, r2 subtracts r1, r3 has division counter -> r0
 
 /*
 fTemp_timed_loop:
@@ -98,34 +98,34 @@ mov r0, #0				@ empty reg
 mov r1, #0				@ r1 has numerator for divMod
 mov r2, #9				@ empty reg
 mov r3, #0				@ empty reg
-mov r4, 32				@ r4 has count for loop (int i), don't change
+mov r4, #32				@ r4 has count for loop (int i), don't change
 
 bl loop
 
-mov r1, #200000			@ set counter for printf 
+ldr r1, =200000			@ set counter for printf 
 ldr r0, address_of_message4
 bl start_time			@ branch to start_time where r2 has start time
 str r2, [r0]			@ store r2 into r0. need to add #4 to make room for 4 byte int???
-mov r0, #200000			@ set counter for loop function
+ldr r0, =200000			@ set counter for loop function
 bl iTemp_timed_loop		@ branch to get time of function
 ldr r2, [r0]			@ load r0 into r2
 bl end_time			@ branch to end_time where r2 must have start time
 
-mov r1, #2000			@ set counter for printf (200,000 / 100)
+ldr r1, =2000			@ set counter for printf (200,000 / 100)
 ldr r0, address_of_message5
 bl start_time			@ branch to start_time where r2 has start time
 str r2, [r0]			@ store r2 into r0. need to add #4 to make room for 4 byte int???
-mov r4, #2000			@ set counter for loop function (200,000 / 100)
+ldr r4, =2000			@ set counter for loop function (200,000 / 100)
 bl divMod_timed_loop		@ branch to get time of function
 ldr r2, [r0]			@ load r0 into r2
 bl end_time			@ branch to end_time where r2 must have start time
 
 /*
-mov r1, #200000			@ set counter for printf
+ldr r1, =200000			@ set counter for printf
 ldr r0, address_of_message6
 bl start_time			@ branch to start_time where r2 has start time
 str r2, [r0]			@ store r2 into r0. need to add #4 to make room for 4 byte int???
-mov r0, #200000			@ set counter for loop function
+ldr r0, =200000			@ set counter for loop function
 bl fTemp_timed_loop		@ branch to get time of function
 ldr r2, [r0]			@ load r0 into r2
 bl end_time			@ branch to end_time where r2 must have start time
