@@ -12,7 +12,8 @@ format: .asciz "%d"
 loop:
 push { r4, lr}
 sub r1, r4, #32				@ counter r4 - 32 goes into r1
-mul r1, r1, #5				@ r1 has numerator for divMod
+mov r0, #5				@ set r0 to mul r1 for numerator
+mul r1, r0, r1				@ r1 has numerator for divMod
 mov r2, #9				@ r2 has denominator for divMod
 bl divMod				@ branch to Divmod
 ldr r0, address_of_message1		@ after divMod results displayed r1 can be used
@@ -50,7 +51,6 @@ bx lr
 iTemp:
 push {r4, lr}
 ldr r1, =0x8E38F
-ldr r1, [r1]
 sub r2, r4, #32 			@ r2 has (r4(int i) -32)
 mul r3, r1, r2				@ r3 has r1 * r2  >>20???
 pop {r4, lr}			
@@ -76,8 +76,8 @@ bgt divMod_timed_loop  			@ loop til counter reaches 0
 pop {r4, lr}
 bx lr
 
-//divMod- r0 gets #0, r1 has # to be divided, r2 has divisor, r3 gets a 1
-//results are: r0 has the result, r1 the remainder, r2 subtracts r1, r3 has division counter -> r0
+@ divMod- r0 gets #0, r1 has # to be divided, r2 has divisor, r3 gets a 1
+@ results are: r0 has the result, r1 the remainder, r2 subtracts r1, r3 has division counter -> r0
 
 /*
 fTemp_timed_loop:
@@ -98,7 +98,7 @@ mov r0, #0				@ empty reg
 mov r1, #0				@ r1 has numerator for divMod
 mov r2, #9				@ empty reg
 mov r3, #0				@ empty reg
-mov r4, 32				@ r4 has count for loop (int i), don't change
+mov r4, #32				@ r4 has count for loop (int i), don't change
 
 bl loop
 
