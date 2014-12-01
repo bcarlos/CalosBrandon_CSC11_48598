@@ -37,11 +37,16 @@ ldr r0, address_of_format    	/* Set &format as the first parameter of scanf */
 mov r1, sp			@ set r1 as the input 
 bl scanf
 
+<<<<<<< HEAD
 ldr r4, [sp]			@ r4 contains input
 cmp r4, #32
 blt try_again
 cmp r4, #212
 bgt try_again
+=======
+ldr r0, [sp]
+bl printf
+>>>>>>> 453a6562619b0cc62cef59d31d1c1d688733575e
 
 mov r1, #5
 mov r2, #9
