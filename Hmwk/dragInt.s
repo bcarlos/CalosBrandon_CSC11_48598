@@ -8,8 +8,23 @@ message5: .asciz " Time = %d secs "
 
 .text
 
-loop:
+.global main
+main:
 push {r4, r5, r6, lr}
+
+mov r0, #0
+ldr r0, =100000000 		@ nLoops
+mov r1, #0 				@ declare endTime variable
+mov r2, #0 				@ declare begTime variable
+mov r3, #0 				@ declare iDynp
+mov r4, #0 				@ declare iArea
+mov r5, #0 				@ declare iDrag
+mov r6, #0 				@ empty reg
+
+bl start_clock
+
+loop:
+@  push {r4, r5, r6, lr}
 @  sub sp, sp, #4
 mov r3, #1
 ldr r6, =0x9B5 			@ iRho
@@ -34,14 +49,8 @@ mul r5, r6, r5 			@ iCd * iDrag
 sub r0, r0, #1
 cmp r0, #0
 bgt loop
-@  add sp, sp, #4
-pop {r4, r5, r6, lr}
-bx lr
 
-.global main
-main:
-push {r4, r5, r6, lr}
-
+<<<<<<< HEAD
 mov r0, #0
 ldr r0, =1000000 		@ nLoops
 mov r0, r0
@@ -55,6 +64,10 @@ mov r6, #0 				@ empty reg
 bl start_clock
 
 bl loop
+=======
+@  add sp, sp, #4
+@  pop {r4, r5, r6, lr}
+>>>>>>> c25e7257e044faffe443755d3aab979819829eaf
 
 bl end_clock
 
@@ -89,4 +102,8 @@ address_of_message5: .word message5
 
 .global printf
 .global start_clock
+<<<<<<< HEAD
 .global end_clock
+=======
+.global end_clock
+>>>>>>> c25e7257e044faffe443755d3aab979819829eaf
