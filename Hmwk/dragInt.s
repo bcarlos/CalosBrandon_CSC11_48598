@@ -43,7 +43,8 @@ main:
 push {r4, r5, r6, lr}
 
 mov r0, #0
-ldr r0, =100000000 		@ nLoops
+ldr r0, =1000000 		@ nLoops
+mov r0, r0
 mov r1, #0 				@ declare endTime variable
 mov r2, #0 				@ declare begTime variable
 mov r3, #0 				@ declare iDynp
