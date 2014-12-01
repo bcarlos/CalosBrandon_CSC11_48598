@@ -16,8 +16,8 @@ mov r0, #5				@ set r0 to mul r1 for numerator
 mul r1, r0, r1				@ r1 has numerator for divMod
 mov r2, #9				@ r2 has denominator for divMod
 bl divMod				@ branch to Divmod
+mov r1, r0 				@ @ load result r0 from divMod into r1
 ldr r0, address_of_message1		@ after divMod results displayed r1 can be used
-ldr r1, [r0]				@ load result r0 from divMod into r1
 bl printf
 
 /*
