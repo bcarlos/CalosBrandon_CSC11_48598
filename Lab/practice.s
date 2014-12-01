@@ -16,7 +16,7 @@ mov r1, sp
 bl scanf
 
 ldr r0, [sp]
-printf
+bl printf
 
 
 pop {lr}
