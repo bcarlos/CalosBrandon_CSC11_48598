@@ -16,11 +16,12 @@ ldr r0, address_of_format
 mov r1, sp
 bl scanf
 ldr r4, [sp]
+/*
 cmp r4, #32
 blt try_again
 cmp r4, #212
 bgt try_again
-
+*/
 add sp, sp, #4
 pop {lr}
 bx lr
@@ -37,28 +38,26 @@ ldr r0, address_of_format    	/* Set &format as the first parameter of scanf */
 mov r1, sp			@ set r1 as the input 
 bl scanf
 
-<<<<<<< HEAD
 ldr r4, [sp]			@ r4 contains input
 cmp r4, #32
 blt try_again
 cmp r4, #212
 bgt try_again
-=======
-ldr r0, [sp]
-bl printf
->>>>>>> 453a6562619b0cc62cef59d31d1c1d688733575e
 
+mov r3, #0
 mov r1, #5
-mov r2, #9
 sub r4, r4, #32
-mul r1, r1, r4
+mul r0, r4, r1
+mov r1, r0
+mov r2, #9
+mov r0, #0
 bl divMod
 /* branch to divmod with input in r1, divisor in r2
 result will be in r0 with remainder in r1 */
 
-ldr r0, address_of_message2
 ldr r1, [r0]
 ldr r2, [r1]
+ldr r0, address_of_message2
 bl printf
 
 
