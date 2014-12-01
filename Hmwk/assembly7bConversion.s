@@ -140,9 +140,8 @@ address_of_message3: .word message3
 address_of_message4: .word message4
 address_of_message5: .word message5
 address_of_message6: .word message6
-address_of_format: .word format
 
 .global printf
-.global start_clock
-.global end_clock
+.global start_time
+.global end_time
 .global divMod

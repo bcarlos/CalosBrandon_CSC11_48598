@@ -11,7 +11,7 @@ bl time
 mov r1, r0
 ldr r0, address_of_message
 bl printf
-mov r5, r1						/* keep start time in r5 */
+mov r2, r1						/* keep start time in r5 */
 bx lr
 
 .global end_clock
@@ -21,8 +21,8 @@ bl time
 mov r1, r0
 ldr r0, address_of_message2
 bl printf
-mov r6, r1						/* keep end time in r6 */
-sub r1, r6, r5					/* subtract r6 (end) - r5 (start) */
+mov r1, r1						/* keep end time in r6 */
+sub r2, r1, r2					/* subtract r6 (end) - r5 (start) */
 ldr r1, [r1]
 ldr r0, address_of_message3
 bl printf

@@ -4,8 +4,8 @@ message2: .asciz " End time is %d "
 message3: .asciz " Difference is %d "
 .text
 
-.global start_clock
-start_clock:
+.global start_time
+start_time:
 mov r0, #0				@ set r0 for time
 bl time
 mov r1, r0				@ move time into r1
@@ -14,8 +14,8 @@ bl printf
 mov r2, r1				@ r2 has start time
 bx lr
 
-.global end_clock
-end_clock:
+.global end_time
+end_time:
 mov r0, #0				@ set r0 for time
 bl time
 mov r1, r0				@ move time into r1
