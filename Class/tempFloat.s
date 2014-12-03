@@ -14,11 +14,15 @@ return: .word 0
 main:
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @push {r4,lr} 			@ align with 8 bytes
 ldr r1, addr_return
 str lr, [r1]
 sub sp, sp, #8 			@ make room on the stack
 =======
+=======
+
+>>>>>>> acb8e2a11ebf8e5d716a9bf51391ce23bcd99451
 push {r4, r5, r6, lr} 				@ align with 8 bytes
 @ldr r1, addr_return
 @str lr, [r1]
