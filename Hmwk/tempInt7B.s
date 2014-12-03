@@ -14,36 +14,36 @@ bl loop
 .global main
 main:
 push {lr}
-sub sp, sp, #4				@ make room for a word on the stack
+sub sp, sp, #4			@ make room for a word on the stack
 
 ldr r0, address_of_message1	/* Set &message1 as the first parameter of printf */
-bl printf                   /* Call printf */
+bl printf                   	/* Call printf */
 
-ldr r0, address_of_format   /* Set &format as the first parameter of scanf */
-ldr r1, address_of_word		@ set r1 as the input 
+ldr r0, address_of_format  	/* Set &format as the first parameter of scanf */
+ldr r1, address_of_word1	@ set r1 as the input 
 bl scanf
 
-mov r5, #1
-ldr r6, =1500000
+mov r5, #1			@ set loop
+ldr r6, =1500000		@ end loop
 
 loop:
-ldr r0, address_of_word1	@ 
-ldr r0, [r0]				@
-sub r0, r0, #32
-cmp r6, r5
+ldr r0, address_of_word1	@ load integer read into r0
+ldr r0, [r0]			@ load into r0
+sub r0, r0, #32			@ calculate f - 32
+cmp r6, r5			@ compare and loop
 bgt scale
 
-ldr r1, address_of_word2	@ temp f word
-ldr r1, [r1]
-mul r3, r1, r0
-mov r1, r3, lsr #20
+ldr r1, address_of_word2	@ load 5/9 integer
+ldr r1, [r1]			@ load
+mul r3, r1, r0			@ multiply input by r1
+mov r1, r3, lsr #20		@ mov to first scanf parameter and shift
 
 ldr r0, address_of_message2
 bl printf
 
 
-add sp, sp, #4				@ adjust stack
-pop {lr}					@ restore pc
+add sp, sp, #4			@ adjust stack
+pop {lr}			@ restore pc
 bx lr
 
 address_of_message1: .word message1
