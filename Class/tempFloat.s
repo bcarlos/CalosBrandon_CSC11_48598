@@ -13,6 +13,7 @@ return: .word 0
 .func main
 main:
 
+
 push {r4, r5, r6, lr} 				@ align with 8 bytes
 @ldr r1, addr_return
 @str lr, [r1]
