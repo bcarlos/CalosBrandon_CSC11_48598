@@ -13,10 +13,17 @@ return: .word 0
 .func main
 main:
 
+<<<<<<< HEAD
 @push {r4,lr} 			@ align with 8 bytes
 ldr r1, addr_return
 str lr, [r1]
 sub sp, sp, #8 			@ make room on the stack
+=======
+push {r4, r5, r6, lr} 				@ align with 8 bytes
+@ldr r1, addr_return
+@str lr, [r1]
+sub sp, sp, #8 				@ make room on the stack
+>>>>>>> b956e6419e18325f909e023b0e1b6b9d0cadfcc7
 
 ldr r1, addr_value1 		@ float part of equation
 vldr s14, [r1]			@ load r1 into s14
@@ -25,19 +32,25 @@ vcvt.f64.f32 d5, s14 		@ convert to 64 bit into d5
 ldr r0, =message_get 		/* Set &message_get as the first parameter of printf */
 bl printf 			/* Call printf */
 
+<<<<<<< HEAD
 ldr r0, addr_format_in		/* Set &format as the first parameter of scanf */
+=======
+/*
+ldr r0, addr_format_in   	/* Set &format as the first parameter of scanf */
+>>>>>>> b956e6419e18325f909e023b0e1b6b9d0cadfcc7
 ldr r1, addr_value1 		@ set r1 as the input 
 bl scanf 					@ scan integer onto r1
 
 ldr r1,addr_value1    		@ Get addr of value 
 vldr s16,[r1]        		@ Move value to s16 
 vcvt.f64.f32 d6, s16  		@ Convert to B64 into d6
+*/
 
-ldr r6, =1500000 			@ set register for loop
-
-vmov r2, r3, d5
-vstr d6, [sp]
-bl printf
+@ldr r6, =1500000 			@ set register for loop
+ldr r0, =message_out		@ temporary message
+vmov r2, r3, d5				@ temporary!!!!!!!!
+@ vstr d6, [sp]				@ temp
+bl printf					@ temp
 /*
 loop:
 @ ldr r0, address_of_word1 @ set r0 as integer read by scan
@@ -63,9 +76,15 @@ bl printf
 
 
 add sp, sp, #8 				@ adjust stack
+<<<<<<< HEAD
 ldr r0, addr_return
 ldr lr, [r0]
 @pop {r4, lr} 				@ restore pc
+=======
+@ldr r0, addr_return
+@ldr lr, [r0]
+pop {r4, r5, r6, lr} 				@ restore pc
+>>>>>>> b956e6419e18325f909e023b0e1b6b9d0cadfcc7
 bx lr
 
 addr_format_in: .word format_in
