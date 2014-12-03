@@ -4,7 +4,6 @@ fmt_out: .asciz "The conversion is: %f  \n"
 fmt_in: .asciz "%f"
 
 value: .float 0.55555
-@return: .word 0
 .text
 
 .global main
