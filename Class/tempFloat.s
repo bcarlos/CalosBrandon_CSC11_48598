@@ -13,23 +13,23 @@ return: .word 0
 .func main
 main:
 
-push {r4,lr} 				@ align with 8 bytes
-ldr r1, address_of_return
+@push {r4,lr} 			@ align with 8 bytes
+ldr r1, addr_return
 str lr, [r1]
-sub sp, sp, #8 				@ make room on the stack
+sub sp, sp, #8 			@ make room on the stack
 
 ldr r1, addr_value1 		@ float part of equation
-vldr s14, [r1] 				@ load r1 into s14
+vldr s14, [r1]			@ load r1 into s14
 vcvt.f64.f32 d5, s14 		@ convert to 64 bit into d5
-							@ d5 has float 5/9
+				@ d5 has float 5/9
 ldr r0, =message_get 		/* Set &message_get as the first parameter of printf */
-bl printf 					/* Call printf */
+bl printf 			/* Call printf */
 
-ldr r0, address_of_format   /* Set &format as the first parameter of scanf */
+ldr r0, addr_format_in		/* Set &format as the first parameter of scanf */
 ldr r1, addr_value1 		@ set r1 as the input 
 bl scanf 					@ scan integer onto r1
 
-ldr r1,addr_value    		@ Get addr of value 
+ldr r1,addr_value1    		@ Get addr of value 
 vldr s16,[r1]        		@ Move value to s16 
 vcvt.f64.f32 d6, s16  		@ Convert to B64 into d6
 
@@ -63,9 +63,9 @@ bl printf
 
 
 add sp, sp, #8 				@ adjust stack
-ldr r0, address_of_return
+ldr r0, addr_return
 ldr lr, [r0]
-pop {r4, lr} 				@ restore pc
+@pop {r4, lr} 				@ restore pc
 bx lr
 
 addr_format_in: .word format_in
