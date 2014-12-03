@@ -1,10 +1,8 @@
 .data
-
 message_get: .asciz "Type a number to convert to Celsius: "
 message_out: .asciz "The conversion is: %f  \n"
 
 format_in: .asciz "%f"
-word1: .word 0				@ unused???
 value1: .float 0.55555
 return: .word 0
 .text
@@ -12,49 +10,35 @@ return: .word 0
 .global main
 .func main
 main:
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-@push {r4,lr} 			@ align with 8 bytes
+@push {r4, lr}
+@push {r4, r5, r6, lr} 		@ align with 8 bytes
 ldr r1, addr_return
 str lr, [r1]
-sub sp, sp, #8 			@ make room on the stack
-=======
-=======
+sub sp, sp, #8	 		@ make room on the stack
 
->>>>>>> acb8e2a11ebf8e5d716a9bf51391ce23bcd99451
-push {r4, r5, r6, lr} 				@ align with 8 bytes
-@ldr r1, addr_return
-@str lr, [r1]
-sub sp, sp, #8 				@ make room on the stack
->>>>>>> b956e6419e18325f909e023b0e1b6b9d0cadfcc7
 
 ldr r1, addr_value1 		@ float part of equation
 vldr s14, [r1]			@ load r1 into s14
 vcvt.f64.f32 d5, s14 		@ convert to 64 bit into d5
 				@ d5 has float 5/9
-ldr r0, =message_get 		/* Set &message_get as the first parameter of printf */
-bl printf 			/* Call printf */
+@ldr r0, =message_get 		/* Set &message_get as the first parameter of printf */
+@bl printf 			/* Call printf */
 
-<<<<<<< HEAD
-ldr r0, addr_format_in		/* Set &format as the first parameter of scanf */
-=======
 /*
-ldr r0, addr_format_in   	/* Set &format as the first parameter of scanf */
->>>>>>> b956e6419e18325f909e023b0e1b6b9d0cadfcc7
+ldr r0, addr_format_in   	@ Set &format as the first parameter of scanf
 ldr r1, addr_value1 		@ set r1 as the input 
-bl scanf 					@ scan integer onto r1
+bl scanf 			@ scan integer onto r1
 
-ldr r1,addr_value1    		@ Get addr of value 
-vldr s16,[r1]        		@ Move value to s16 
-vcvt.f64.f32 d6, s16  		@ Convert to B64 into d6
+ldr r1, addr_value1    		@ Get addr of value 
+vldr s15, [r1]        		@ Move value to s15
+vcvt.f64.f32 d1, s15  		@ Convert to B64 into d1
 */
 
-@ldr r6, =1500000 			@ set register for loop
+@ldr r6, =1500000 		@ set register for loop
 ldr r0, =message_out		@ temporary message
-vmov r2, r3, d5				@ temporary!!!!!!!!
-@ vstr d6, [sp]				@ temp
-bl printf					@ temp
+vmov r2, r3, d5			@ temporary!!!!!!!!
+@ vstr d6, [sp]			@ temp
+bl printf			@ temp
 /*
 loop:
 @ ldr r0, address_of_word1 @ set r0 as integer read by scan
@@ -79,22 +63,13 @@ bl printf
 */
 
 
-add sp, sp, #8 				@ adjust stack
-<<<<<<< HEAD
+add sp, sp, #8 			@ adjust stack
 ldr r0, addr_return
 ldr lr, [r0]
-@pop {r4, lr} 				@ restore pc
-=======
-@ldr r0, addr_return
-@ldr lr, [r0]
-pop {r4, r5, r6, lr} 				@ restore pc
->>>>>>> b956e6419e18325f909e023b0e1b6b9d0cadfcc7
+@pop {r4, r5, r6, lr} 			@ restore pc
+@pop {r4, lr}
 bx lr
 
 addr_format_in: .word format_in
-addr_word1: .word word1
 addr_value1: .word value1
 addr_return: .word return
-
-.global printf
-.global scanf
