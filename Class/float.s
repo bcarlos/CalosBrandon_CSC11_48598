@@ -27,13 +27,15 @@ main:
 	
     /* Input the value */
 	ldr r0,addr_fmt_in   @ Single float format
-	mov r1,sp            @ Place address of stack in r1
+	ldr r1, addr_value  @ place address of stack in r1
+	@mov r1,sp            @ Place address of stack in r1
 	bl scanf
 	
 	/* Store this value in the variable */
-	ldr r0,[sp]          @ Load the value in r0
-	ldr r1,addr_value    @ Where to store the value
-	str r0,[r1]          @ Store the new value
+	/* or take this code out if using ldr r1, addr_value */
+	@ldr r0,[sp]          @ Load the value in r0
+	@ldr r1,addr_value    @ Where to store the value
+	@str r0,[r1]          @ Store the new value
 	
 	/* Convert the float to a double again*/
 	ldr r1,addr_value    @ Get addr of value 
