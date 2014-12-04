@@ -31,10 +31,10 @@ ldr r3, =10000000 @ set loop register to 10,000,000
 /* First calculation fHalf, fRho, fVel into fDynp (d0) */
 ldr  r0, addr_value5 @ fHalf
 vldr s0, [r0] @ load into s0
-ldr  r0, addr_value0 @ fRho
-vldr s1, [r0] @ load into s1
-ldr  r0, addr_value6 @ fVel
-vldr s2, [r0] @ load into s2
+ldr  r1, addr_value0 @ fRho
+vldr s1, [r1] @ load into s1
+ldr  r2, addr_value6 @ fVel
+vldr s2, [r2] @ load into s2
  
 /* Remove from the stack and return */
         add sp, sp, #8       @ Discard the integer read by scanf
