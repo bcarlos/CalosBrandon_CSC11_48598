@@ -17,11 +17,7 @@ main:
 	vldr s14,[r1]        @ Move value to s14 
 	vcvt.f64.f32 d4,s14  @ Convert to b64 into d4 
 				@ d4 has float 5/9
-	/* Print the result */
-@	ldr r0, addr_fmt_out @ Point r0 to string 
-@	vmov r2, r3, d4      @ Load value 
-@	bl printf            @ Call function 
-	
+
     /* Prompt for a new floating point variable */
 	ldr r0, addr_fmt_get @ Point r0 to string
 	bl printf            @ Call function 
