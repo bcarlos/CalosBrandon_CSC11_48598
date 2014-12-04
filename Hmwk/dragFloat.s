@@ -118,4 +118,4 @@ addr_value9: .word value9
 addr_msg1: .word msg1
 addr_msg2: .word msg2
 addr_msg3: .word msg3
-addr_msg4: .word msg4?
+addr_msg4: .word msg4
