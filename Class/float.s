@@ -64,3 +64,8 @@ addr_value2:   .word value2
 addr_fmt_out: .word fmt_out
 addr_fmt_get: .word fmt_get
 addr_fmt_in:  .word fmt_in
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> b68fd6caa6b53b14cea3795b6bf25c51e6b5b013
