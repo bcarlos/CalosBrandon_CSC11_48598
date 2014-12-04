@@ -24,7 +24,7 @@ ldr r1, address_of_word1	@ set r1 as the input
 bl scanf
 
 mov r5, #1			@ set loop
-ldr r6, =1500000		@ end loop
+ldr r6, =10000000		@ end loop
 
 loop:
 ldr r0, address_of_word1	@ load integer read into r0
