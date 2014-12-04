@@ -41,18 +41,18 @@ vldr s2, [r0] @ load into s2
         pop {r4,lr}
         bx lr
 		
-addr_value0: .word value0
-addr_value1: .word value1
-addr_value2: .word value2
-addr_value3: .word value3
-addr_value4: .word value4
-addr_value5: .word value5
-addr_value6: .word value6
-addr_value7: .word value7
-addr_value8: .word value8
-addr_value9: .word value9
+addr_value0: .word value0 @ fRho
+addr_value1: .word value1 @ fPi
+addr_value2: .word value2 @ fRad
+addr_value3: .word value3 @ fConv
+addr_value4: .word value4 @ fCd
+addr_value5: .word value5 @ fHalf
+addr_value6: .word value6 @ fVel
+addr_value7: .word value7 @ fDynp
+addr_value8: .word value8 @ fArea
+addr_value9: .word value9 @ fDrag
 
-addr_msg1: .word msg1
-addr_msg2: .word msg2
-addr_msg3: .word msg3
-addr_msg4: .word msg4
+addr_msg_dyn_out: .word msg_dyn_out
+addr_msg2: .word msg2 @area
+addr_msg3: .word msg3 @ drag
+addr_msg4: .word msg4 @ loops
