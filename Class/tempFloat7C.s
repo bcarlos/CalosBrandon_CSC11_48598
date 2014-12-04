@@ -56,5 +56,3 @@ addr_value:   .word value
 addr_fmt_out: .word fmt_out
 addr_fmt_get: .word fmt_get
 addr_fmt_in:  .word fmt_in
-
-
