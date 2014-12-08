@@ -1,6 +1,6 @@
 .data
 
-user_cards: .asciz "User's cards: 1: %f , 2: %f \n
+user_cards: .asciz "User's cards: 1: %f , 2: %f \n"
 cp_cards: .asciz "Computer's cards: 1: %f , 2: %f \n"
 msg_welcome: .asciz "Welcome to card attack. Enter 1 to play, anything else to exit: \n"
 msg_choose1: .asciz "Choose your card that you want to use to attack (1 or 2 respectively): \n"
@@ -9,11 +9,11 @@ cp_loose: .asciz "Computer looses! \n"
 user_loose: .asciz "You loose \n"
 int_format: .asciz "%d"
 flt_format: .asciz "%f"
-user_lt_card: .float 0.0 @ user's first card (left card)
-user_rt_card: .float 0.0 @ user's second card (right card)
-cp_lt_card: .float 0.0 @ computer's first card (left card)
-cp_rt_card: .float 0.0 @ computer's second card (right card)
-zero: .float 0.0 @ set to 0 to compare
+user_lt_card: .float 0.0 		@ user's first card (left card)
+user_rt_card: .float 0.0 		@ user's second card (right card)
+cp_lt_card: .float 0.0 			@ computer's first card (left card)
+cp_rt_card: .float 0.0 			@ computer's second card (right card)
+zero: .float 0.0 				@ set to 0 to compare
 
 .text
  
