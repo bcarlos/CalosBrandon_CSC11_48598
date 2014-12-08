@@ -72,11 +72,15 @@ print_F_and_C:
         mov r7, r2 					@ save a copy of array C
         b check_loop_print_array
 loop_print_array:
-		ldr r0, disp_msg
-        ldr r1, [r6, r4, lsl #2]
-		ldr r2, [r7, r4, lsl #2]
-        bl printf
+        ldr r2, [r7, r4, lsl #2]	@ first param printf = Carray
+        vmov s0, r2					@ prepare to convert
+		vcvt.f64.f32 d1, s0			@ convert to double to print
+		ldr r0, disp_msg			@ load display message
+		vmov r2, r3, d1				@ print double format
+		ldr r1, [r6, r4, lsl #2]	@ second param = Farray
+		bl printf
         add r4, r4, #1 				@ increase counter by 1
+		str r1, [r7, r4, lsl #2]
 check_loop_print_array:
         cmp r4, r5
         ble loop_print_array
