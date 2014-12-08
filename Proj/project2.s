@@ -6,7 +6,7 @@ msg_welcome: .asciz "Welcome to card attack. Enter 1 to play, anything else to e
 msg_choose1: .asciz "Choose your card that you want to use to attack (1 or 2 respectively): \n"
 msg_choose2: .asciz "Choose computer's card you want to attack (1 or 2 respectively): \n" 
 cp_loose: .asciz "Computer looses! \n"
-user_loose: .asciz "You loose \n"
+ur_loose: .asciz "You loose \n"
 int_format: .asciz "%d"
 flt_format: .asciz "%f"
 user_lt_card: .float 0.0 		@ user's first card (left card)
@@ -50,32 +50,32 @@ add r1,#10 @ remainder in r1 so add 10 giving between 10 and 99 -> 2 digits
 bx lr @ leave rand_num
 
 create_cards:
-    bl rand_num
+bl rand_num
 mov r4, r1 @ user's card r4 moded by 5
-    and r4, r4, #5             @ user's cards r4 & r5
+and r4, r4, #5             @ user's cards r4 & r5
 ldr r0, addr_user_lt_card @ load address for user card float
-vmov r1, r4 @ vmov r4 into r1
+mov r1, r4 @ mov r4 into r1
 str r1, [r0]   @ store r1 into float address
 
 bl rand_num
 mov r5, r1 @ user's card r5
 and r5, r5, #5 @ mod by 5
 ldr r0, addr_user_rt_card @ load address for user card float
-vmov r1, r5 @ vmov r5 into r1
+mov r1, r5 @ mov r5 into r1
 str r1, [r0] @ store r1 into float address
  
 bl rand_num
 mov r6, r1 @ computer's card r6
 and r6, r6, #5 @ mod by 5
 ldr r0, addr_cp_lt_card @ load address for cp card float
-vmov r1, r6 @ vmov r6 into r1
+mov r1, r6 @ mov r6 into r1
 str r1, [r0] @ store r1 into float address
 
 bl rand_num
 mov r7, r1 @ computer's card r7
 and r7, r7, #5 @ computer's cards r6 & r7
 ldr r0, addr_cp_rt_card @ load address for cp card float
-vmov r1, r7 @ vmov r7 into r1
+mov r1, r7 @ mov r7 into r1
 str r1, [r0] @ store r1 into float address
    
 ldr  r1, addr_user_lt_card @ load address for user left card
@@ -93,11 +93,11 @@ vcvt.f64.f32 d4, s0 @ convert to double format into d4
  
 ldr r0, disp_user_cards @ load display user cards message
 vmov r2, r3, d1 @ vmov d1 to display
-str d2, [sp] @ store d2 onto the stack to display
+vstr d2, [sp] @ store d2 onto the stack to display
 bl printf
 ldr r0, disp_cp_cards @ load display cp cards message
 vmov r2,r3,d3 @ vmov d3 to display
-str d4, [sp] @ store d4 onto the stack to display
+vstr d4, [sp] @ store d4 onto the stack to display
 bl printf
    
 ldr r0, addr_user_lt_card
@@ -172,13 +172,13 @@ ble computer_loose @ if not then branch to end
     computer_from_left: @ use s2 (computer's card) to attack
     vcmp.f32 s0, s1 @ check user's larger int
     vsubgt.f32 s0, s0, s2 @ if s0 > s1 then attack s0
-    suble s1, s1, s2 @ otherwise attack s1 by s2
+    vsuble.f32 s1, s1, s2 @ otherwise attack s1 by s2
     bl display_cards @ display cards
 
 computer_from_right: @ use s3 (computer's card) to attack
     vcmp.f32 s0, s1 @ check user's larger int 
-    subgt s0, s0, s3 @ if s0 > s1 then attack s0
-    suble s1, s1, s3 @ otherwise attack s1 by s3
+    vsubgt.f32 s0, s0, s3 @ if s0 > s1 then attack s0
+    vsuble.f32 s1, s1, s3 @ otherwise attack s1 by s3
     bl display_cards @ display cards
 
 display_cards:
@@ -209,11 +209,11 @@ vldr s3, [r1]
 vcvt.f64.f32 d4, s3
 
 ldr r0, disp_user_cards @ display user's cards
-    vmov r2, r3, d1 @ second param of printf
+vmov r2, r3, d1 @ second param of printf
 vstr d2, [sp] @ next to display on stack
 bl printf   
 ldr r0, disp_cp_cards   @ display computer's cards
-mov r1, r2, d3 @ second param of printf
+vmov r1, r2, d3 @ second param of printf
 vstr d4, [sp] @ next to display on stack
 bl printf
     bl player_move
@@ -228,7 +228,7 @@ ldr r0, addr_cp_rt_card
 vldr s3, [r0] @ load cp rt card into s3
 
     user_loose:
-    ldr r0, addr_user_loose @ load user loose message
+    ldr r0, addr_ur_loose @ load user loose message
     bl printf @ print message
     bl end @ branch to end program
 
@@ -248,7 +248,7 @@ addr_msg_welcome: .word msg_welcome
 addr_msg_choose1: .word msg_choose1
 addr_msg_choose2: .word msg_choose2
 addr_cp_loose: .word cp_loose
-addr_user_loose: .word user_loose
+addr_ur_loose: .word ur_loose
 addr_int_format: .word int_format
 addr_flt_format: .word flt_format
 addr_user_lt_card: .word user_lt_card @ user's first card (left card)
