@@ -37,6 +37,7 @@ vldr s0, [r0] @ load into s0
         add sp, sp, #8       @ Discard the integer read by scanf
         pop {r4,lr}
         bx lr
+<<<<<<< HEAD
 
 .global printf		
 
@@ -57,3 +58,21 @@ addr_msg1: .word msg1
 addr_msg2: .word msg2
 addr_msg3: .word msg3
 addr_msg4: .word msg4
+=======
+		
+addr_value0: .word value0 @ fRho
+addr_value1: .word value1 @ fPi
+addr_value2: .word value2 @ fRad
+addr_value3: .word value3 @ fConv
+addr_value4: .word value4 @ fCd
+addr_value5: .word value5 @ fHalf
+addr_value6: .word value6 @ fVel
+addr_value7: .word value7 @ fDynp
+addr_value8: .word value8 @ fArea
+addr_value9: .word value9 @ fDrag
+
+addr_msg_dyn_out: .word msg_dyn_out
+addr_msg2: .word msg2 @area
+addr_msg3: .word msg3 @ drag
+addr_msg4: .word msg4 @ loops
+>>>>>>> 3a5509de6625c2fb96dcb29a929e5e1ce6791897

@@ -1,5 +1,6 @@
-.data
+@ does not work: Bus Error
 
+.data
 msg1: .asciz " Integer dynamic pressure = %f lbs \n "
 msg2: .asciz " Cross sectional area x 32 = %f ft^2 \n"
 msg3: .asciz " Integer drag x 32 %f lbs \n"
@@ -15,8 +16,8 @@ value6: .float 200.0 @ fVel
 value7: .float 0 @ fDynp, convert to 64bit to display
 value8: .float 0 @ fArea, convert to 64 bit to display
 value9: .float 0 @ fDrag, convert to 64 bit to display
-
 .text
+
 .global main
 .func main
 main: 
