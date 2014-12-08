@@ -1,5 +1,5 @@
 .data
-
+msg: .asciz "number: %d \n"
 user_cards: .asciz "User's cards: 1: %f , 2: %f \n"
 cp_cards: .asciz "Computer's cards: 1: %f , 2: %f \n"
 msg_welcome: .asciz "Welcome to card attack. Enter 1 to play, anything else to exit: \n"
@@ -36,6 +36,10 @@ ldr r1, [r1] @ load into r1
 cmp r1, #1 @ compare with 1
 beq create_cards   @ if input = 1 then start program
 bne _end   @ if r1!=1 then end program
+
+ldr r0, =msg
+mov r1, r1
+bl printf
 
 @ break here and check code
 
@@ -245,6 +249,8 @@ _end:
   bx lr   @ return from main
  
 .align 4
+addr_msg: .word msg
+
 disp_user_cards: .word user_cards
 disp_cp_cards: .word cp_cards
 addr_msg_welcome: .word msg_welcome
