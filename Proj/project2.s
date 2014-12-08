@@ -102,7 +102,7 @@ bl printf
    
 ldr r0, addr_user_lt_card
 vldr s0,[r0] @ load user lt card into s0
-ldr r0, addr__user_rt_card
+ldr r0, addr_user_rt_card
 vldr s1, [r0] @ load user rt card into s1
 ldr r0, addr_cp_lt_card
 vldr s2, [r0] @ load cp lt card into s2
@@ -123,7 +123,7 @@ bl player_move
   ble user_card_check @ if 0 then branch to check other card
     ldr r0, addr_msg_choose1 @ load message to choose user card
     bl printf @ display message
-    ldr r0, address_of_format
+    ldr r0, addr_int_format
     mov r1, sp @ set r1 to take input
     bl scanf
     ldr r1, [sp] @ load int to check user input
@@ -220,7 +220,7 @@ bl printf
 
 ldr r0, addr_user_lt_card
 vldr s0,[r0] @ load user lt card into s0
-ldr r0, addr__user_rt_card
+ldr r0, addr_user_rt_card
 vldr s1, [r0] @ load user rt card into s1
 ldr r0, addr_cp_lt_card
 vldr s2, [r0] @ load cp lt card into s2
@@ -261,4 +261,4 @@ addr_zero: .word zero @ set to 0 to compare single precision float
 .global printf
 .global time
 .global srand
-.global rand?
+.global rand
