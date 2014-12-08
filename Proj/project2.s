@@ -14,6 +14,7 @@ user_rt_card: .float 0.0 		@ user's second card (right card)
 cp_lt_card: .float 0.0 			@ computer's first card (left card)
 cp_rt_card: .float 0.0 			@ computer's second card (right card)
 zero: .float 0.0 				@ set to 0 to compare
+word1: .word 0
 
 .text
  
@@ -27,9 +28,11 @@ ldr r0, addr_msg_welcome @ display welcome message
 bl printf
 
 ldr r0, addr_int_format   @ take users input as int format
-mov r1, sp @ set r1 as input
+ldr r1, addr_word1 @ set r1 as input
 bl scanf @ scan user int
-ldr r1, [sp] @ load integer 
+
+ldr r1, addr_word1 @ load integer
+ldr r1, [r1] @ load into r1 
 cmp r1, #1 @ compare with 1
 beq create_cards   @ if input = 1 then start program
 bne _end   @ if r1!=1 then end program
@@ -230,14 +233,14 @@ vldr s3, [r0] @ load cp rt card into s3
     user_loose:
     ldr r0, addr_ur_loose @ load user loose message
     bl printf @ print message
-    bl end @ branch to end program
+    bl _end @ branch to end program
 
     computer_loose:
     ldr r0, addr_cp_loose @ load computer loose message
 bl printf @ print message
-bl end @ branch to end program
+bl _end @ branch to end program
 
-end:   
+_end:   
   pop {r4, r5, r6, r7, lr} @ readjust the stack and registers 
   bx lr   @ return from main
  
@@ -256,7 +259,9 @@ addr_user_rt_card: .word user_rt_card @ user's second card (right card)
 addr_cp_lt_card: .word cp_lt_card @ computer's first card (left card)
 addr_cp_rt_card: .word cp_rt_card @ computer's second card (right card)
 addr_zero: .word zero @ set to 0 to compare single precision float
+addr_word1: .word word1
 
+.global divMod
 .global scanf
 .global printf
 .global time
