@@ -9,8 +9,11 @@ main:
 
 push {r4, lr}
 
-vmov s1, #10
-vsub.f32 s1, s1, #5
+mov r1, #10
+vmov s1, r1
+mov r1, #5
+vmov s2, r1
+vsub.f32 s1, s1, s2
 vcvt.f64.f32 d1, s1
 ldr r0, ad_msg_dyn_out
 vmov r2, r3, d1
