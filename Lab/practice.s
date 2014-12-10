@@ -1,74 +1,50 @@
 .data
-message1: .asciz "Type a number to convert to Celsius: "
-format: .asciz "%d"
-message2: .asciz "The conversion is: %d   with remainder: %d\n"
-message3: .asciz "Type a number between 32 and 212: \n"
-
+msg_dyn_out: .asciz "The Float = %f \n"
+num: .float 0
 .text
 
-try_again:
-push {lr}
-sub sp, sp, #4
-ldr r0, address_of_message3
-bl printf
-
-ldr r0, address_of_format
-mov r1, sp
-bl scanf
-ldr r4, [sp]
-/*
-cmp r4, #32
-blt try_again
-cmp r4, #212
-bgt try_again
-*/
-add sp, sp, #4
-pop {lr}
-bx lr
-
 .global main
+.func main
 main:
-push {lr}
-sub sp, sp, #4			@ make room for a word on the stack
 
-ldr r0, address_of_message1	/* Set &message1 as the first parameter of printf */
-bl printf                    	/* Call printf */
+push {r4, lr}
 
-ldr r0, address_of_format    	/* Set &format as the first parameter of scanf */
-mov r1, sp			@ set r1 as the input 
-bl scanf
-
-ldr r4, [sp]			@ r4 contains input
-cmp r4, #32
-blt try_again
-cmp r4, #212
-bgt try_again
-
-mov r3, #0
-mov r1, #5
-sub r4, r4, #32
-mul r0, r4, r1
-mov r1, r0
-mov r2, #9
-mov r0, #0
-bl divMod
-/* branch to divmod with input in r1, divisor in r2
-result will be in r0 with remainder in r1 */
-
-ldr r1, [r0]
-ldr r2, [r1]
-ldr r0, address_of_message2
+vmov s1, #10
+vsub.f32 s1, s1, #5
+vcvt.f64.f32 d1, s1
+ldr r0, ad_msg_dyn_out
+vmov r2, r3, d1
 bl printf
 
-
-add sp, sp, #4			@ adjust stack
-pop {lr}			@ restore pc
+/*
+vmov s0, r6					@ float conversion of num in array
+		vcvt.f32.s32 s1, s0			@ convert to single precision f
+		mov r2, #32					@ prepare sub calculation
+		vmov s2, r2           		@ mov r2 into s2 to convert and sub
+		vcvt.f32.s32 s3, s2   		@ convert from single to float
+		vsub.f32 s1, s1, s3   		@ subtract into s1=s1(positiont at r4)-s3
+		mov r2, #5            		@ prepare to vmul where r2 = 5
+		vmov s2, r2           		@ mov r2 into s2 to convert
+		vcvt.f32.s32 s3, s2   		@ convert from single to float
+		vmul.f32 s1, s1, s3   		@ mul into s1=s1*s3
+		mov r2, #9            		@ prepare to calculate where r2 = 9
+		vmov s2, r2           		@ mov r2 into s2 to convert and divide
+		vcvt.f32.s32 s3, s2   		@ convert to float
+		vdiv.f32 s1, s1, s3   		@ div into s1=s1/s3
+	*/	
+		/* Store the dynamic pressure for later use */
+         @       ldr r0, =num
+          @		  vmov r1,s1
+           @     str r1,[r0]
+				
+				
+		 /* Output the Dynp, area, and drag in double format */		
+		@ldr r0,ad_msg_dyn_out
+        @vmov r2,r3,d1
+        @bl printf
+		
+		
+pop {r4, lr}
 bx lr
 
-address_of_message1: .word message1
-address_of_message2: .word message2
-address_of_format: .word format
-address_of_message3: .word message3
-.global printf
-.global scanf
-.global divMod
+ad_msg_dyn_out:.word msg_dyn_out
