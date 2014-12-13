@@ -1,0 +1,68 @@
+.data
+@.align 4
+message1 : .asciz "Program 1 guess the number game\n" 
+message2 : .asciz "Program 2 compounded rate value \n"
+message3 : .asciz "Program 3 square root function \n"
+message4 : .asciz "Program 4 quadratic equation \n"
+message5 : .asciz "Enter 1, 2, 3, or 4 to choose program, 0 to exit \n"
+
+scan_fmt : .asciz "%d"
+input : .word 0
+.text
+
+switch_case:
+	push {r4, lr}
+
+	cmp r1, #1
+	beq guessGame
+	b end_switch
+
+	cmp r1, #2
+	beq compRate
+	b end_switch
+
+	cmp r1, #3
+	beq sqrRoot
+	b end_switch
+
+	cmp r1, #4
+	beq quadEq
+	b end_switch
+
+	end_switch:
+		pop {r4, lr}
+		bx lr
+
+.global main
+.func main
+main:
+	push {r4, lr}
+
+switch_loop:
+	ldr r0, =message1
+	bl printf
+	ldr r0, =message2
+	bl printf
+	ldr r0, =message3
+	bl printf
+	ldr r0, =message4
+	bl printf
+	ldr r0, =message5
+	bl printf
+
+	ldr r0, =scan_fmt
+	ldr r1, ad_input
+	bl scanf
+
+	ldr r1, ad_input
+	ldr r1, [r1]
+	cmp r1, #0
+	beq end
+	bne switch_case
+	b switch_loop
+
+end:
+	pop {r4, lr}
+	bx lr
+
+ad_input: .word input
